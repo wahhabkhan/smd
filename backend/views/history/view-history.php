@@ -111,11 +111,11 @@ $this->title = 'Intervention History View';
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -185,6 +185,16 @@ $this->title = 'Intervention History View';
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
 
@@ -196,20 +206,18 @@ $this->title = 'Intervention History View';
     <tr>
         <th>ID</th>
         <th>Year of Intervention</th>
-        <th>GIZ Intervention</th>
         <th>Stakeholder Category</th>
-        <th>Name of Module</th>
-        <th>Name of Intervention</th>
+        <th>Name of Project</th>
+
         <th>Action</th>
     </tr>
     <?php foreach ($models as $model): ?>
         <tr>
             <td><?= $model->intervention_history_id ?></td>
             <td><?= $model->year_of_intervention ?></td>
-            <td><?= $model->giz_intervention ?></td>
             <td><?= $model->stakeholder->stakeholder_category ?></td>
             <td><?= $model->project->name_of_module ?></td>
-            <td><?= $model->intervention->name_of_intervention ?></td>
+
             <td>
                 <div class="btn-group" role="group">
                 <?= Html::a('View', ['history/view-history-details', 'intervention_history_id' => $model->intervention_history_id], ['class' => 'btn  rounded btn-danger ms-1']) ?>

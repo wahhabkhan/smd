@@ -49,11 +49,11 @@ class History extends \yii\db\ActiveRecord
             'intervention_history_id' => 'Intervention History ID',
             'year_of_intervention' => 'Year of Intervention',
             'giz_intervention' => 'GIZ Intervention',
-            'focal_person' => 'Focal Person',
-            'comments' => 'Comments',
-            'stakeholder_id' => 'Stakeholder ID',
-            'project_id' => 'Project ID',
-            'intervention_id' => 'Intervention ID',
+            'focal_person' => 'Focal Person / Contact Person at the time',
+            'comments' => 'Specifics / Details / Comments',
+            'stakeholder_id' => 'Stakeholder',
+            'project_id' => 'Project',
+            'intervention_id' => 'Intervention',
         ];
     }
 

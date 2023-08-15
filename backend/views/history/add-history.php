@@ -113,11 +113,11 @@ use common\models\Intervention;
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -204,6 +204,16 @@ use common\models\Intervention;
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
 
@@ -235,7 +245,7 @@ use common\models\Intervention;
 
       <?= $form->field($model, 'stakeholder_id')->dropDownList(
             $stakeholderList,
-            ['prompt' => 'Select Stakeholder']
+            ['prompt' => 'Select Stakeholder'],
         ) ?>
 
       <?= $form->field($model, 'project_id')->dropDownList(
@@ -252,9 +262,8 @@ use common\models\Intervention;
     ['prompt' => 'Select Year']
     )?>
 
-      <?=$form->field($model, 'giz_intervention')->textInput(['maxlength' => true])?>
       <?=$form->field($model, 'focal_person')->textInput(['maxlength' => true])?>
-      <?=$form->field($model, 'comments')->textInput(['maxlength' => true])?>
+      <?=$form->field($model, 'comments')->textArea(['maxlength' => true])?>
 
       <div class="form-group text-center my-4">
           <?=Html::submitButton('Save', ['class' => 'btn w-25 btn-danger'])?>

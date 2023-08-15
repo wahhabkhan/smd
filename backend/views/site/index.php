@@ -20,7 +20,7 @@
         left: 0;
         bottom: 0;
         width: 200px;
-        background-color: #f8f9fa;
+        background-color: light;
         padding: 20px;
         overflow-y: auto;
     }
@@ -118,12 +118,12 @@
 
 
     .nav a:hover {
-        color: #1D438A;
+        color: red;
         /* GIZ logo color */
     }
 
     .menu-item:hover .arrow {
-        border-color: #1D438A;
+        border-color: red;
         /* GIZ logo color */
     }
 
@@ -135,13 +135,12 @@
 </head>
 
 <body>
-    <!-- ... Paste the provided HTML code here ... -->
 
     <body>
         <div class="sidebar">
 
             <nav class="nav flex-column">
-              <br><br>
+                <br><br>
                 <div class="menu-item" onclick="toggleSubMenu('project')">
                     <a href="">Project</a>
                     <i class="arrow down"></i>
@@ -185,6 +184,16 @@
                     <br>
                     <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions
                         History</a>
+                </div>
+
+                <div class="menu-item" onclick="toggleSubMenu('user')">
+                    <a href="">Users</a>
+                    <i class="arrow down"></i>
+                </div>
+                <div class="sub-menu" id="user">
+                    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+                    <br>
+                    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
                 </div>
             </nav>
 

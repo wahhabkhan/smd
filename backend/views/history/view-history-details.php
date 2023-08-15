@@ -1,13 +1,15 @@
 <?php
 
 use yii\widgets\DetailView;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\History */
 
-$this->title = 'View History Details';
-//$this->params['breadcrumbs'][] = ['label' => 'History', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Intervention History';
+$this->params['breadcrumbs'][] = ['label' => 'Intervention History View', 'url' => ['history/view-history'],
+              'class' => 'text-danger'];
+
 ?>
 
 <!DOCTYPE html>
@@ -111,11 +113,11 @@ $this->title = 'View History Details';
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -177,7 +179,6 @@ $this->title = 'View History Details';
   <a href="<?=Yii::$app->urlManager->createUrl(['stakeholder/view-stakeholder'])?>">View Stakeholder</a>
 </div>
 
-
 <div class="menu-item" onclick="toggleSubMenu('history')">
         <a href="">Interventions <br> History</a>
         <i class="arrow down"></i>
@@ -187,13 +188,36 @@ $this->title = 'View History Details';
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
   </div>
-  <div class="col-md-9">
+  <?php
+  $historyModel = $model->intervention_history_id;
+  ?>
+<div class="col-md-9">
 <div class="history-view">
-
-    <h3 class="text-center text-danger my-3"><?= $this->title ?></h3>
+<div class="container">
+<h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $historyModel?> <?="Details" ?></h3>
+    <?= Breadcrumbs::widget([
+        'links' => $this->params['breadcrumbs'],
+        'options' => ['class' => 'breadcrumb'],
+        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+        'homeLink' => [
+          'label' => 'Home',
+          'url' => Yii::$app->homeUrl,
+          'class' => 'text-danger', 
+      ],
+    ]) ?>
     <div class="row">
     
     <?= DetailView::widget([
@@ -201,7 +225,6 @@ $this->title = 'View History Details';
         'attributes' => [
             'intervention_history_id' ,
             'year_of_intervention' ,
-            'giz_intervention' ,
             'focal_person' ,
             'comments' ,
             [

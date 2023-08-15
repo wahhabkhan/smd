@@ -30,9 +30,9 @@ class Intervention extends \yii\db\ActiveRecord
          return [
              'intervention_id' => 'Intervention ID',
              'name_of_intervention' => 'Name of Intervention',
-             'short_description' => 'Short Description',
+             'short_description' => 'Short Description of Intervention',
              'giz_module' => 'GIZ Project',
-             'component_manager' => 'Component Manager',
+             'component_manager' => 'Component Manager + Technical Advisors',
              'comments' => 'Comments',
          ];
      }

@@ -109,11 +109,11 @@ use yii\widgets\ActiveForm;
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -202,6 +202,16 @@ use yii\widgets\ActiveForm;
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
 
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
+
 </nav>
   </div>
 
@@ -217,7 +227,7 @@ use yii\widgets\ActiveForm;
 
 <?=$form->field($model, 'short_description')->textInput(['maxlength' => true])?>
 
-<?=$form->field($model, 'giz_intervention')->textInput(['maxlength' => true])?>
+<!-- <?=$form->field($model, 'giz_intervention')->textInput(['maxlength' => true])?> -->
 
 <?=$form->field($model, 'duration')->textInput(['maxlength' => true])?>
 
@@ -225,7 +235,7 @@ use yii\widgets\ActiveForm;
 
 <?=$form->field($model, 'budget')->textInput(['maxlength' => true])?>
 
-<?=$form->field($model, 'comments')->textInput(['maxlength' => true])?>
+<?=$form->field($model, 'comments')->textArea(['maxlength' => true])?>
 
 <div class="form-group text-center">
     <?=Html::submitButton('Save', ['class' => 'btn btn-danger w-25 my-4'])?>

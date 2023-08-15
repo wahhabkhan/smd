@@ -1,14 +1,14 @@
 <?php
-
-use yii\widgets\DetailView;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Intervention */
+/* @var $model common\models\User */
 
-$this->title = 'Intervention';
-$this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['intervention/view-intervention'],
-             'class'=>'text-danger'];
+$this->title = 'User';
+$this->params['breadcrumbs'][] = ['label' => 'User View', 'url' => ['view-user'], 'class' => 'text-danger'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -202,12 +202,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
   </div>
   </div>
   <?php
-  $intervetnionModel = $model->intervention_id;
+  $userModel = $model->id;
   ?>
 <div class="col-md-9">
-<div class="intervetnion-view">
+<div class="user-view">
 <div class="container">
-<h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $intervetnionModel?> <?="Details" ?></h3>
+<h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $userModel?> <?="Details" ?></h3>
     <?= Breadcrumbs::widget([
         'links' => $this->params['breadcrumbs'],
         'options' => ['class' => 'breadcrumb'],
@@ -219,17 +219,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
       ],
     ]) ?>
 </div>
+
     <div class="row">
     
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'intervention_id' ,
-            'name_of_intervention',
-            'short_description' ,
-           // 'giz_module',
-            'component_manager' ,
-            'comments' 
+            'id' ,
+            'name' ,
+            'email',
+            'username',
+            'password_hash',
+
         ],
     ]) ?>
 </div>

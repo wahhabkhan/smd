@@ -1,13 +1,14 @@
 <?php
-
+use yii\widgets\Breadcrumbs;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Project */
 
-$this->title = 'View Project Details';
-//$this->params['breadcrumbs'][] = ['label' => 'Project', 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Project';
+$this->params['breadcrumbs'][] = ['label' => 'Project View', 'url' => ['view-project'], 'class' => 'text-danger'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -111,11 +112,11 @@ $this->title = 'View Project Details';
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -187,13 +188,38 @@ $this->title = 'View Project Details';
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
   </div>
-  <div class="col-md-9">
+  <?php
+  $projectModel = $model->project_id;
+  ?>
+<div class="col-md-9">
 <div class="project-view">
+<div class="container">
+<h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $projectModel?> <?="Details" ?></h3>
+    <?= Breadcrumbs::widget([
+        'links' => $this->params['breadcrumbs'],
+        'options' => ['class' => 'breadcrumb'],
+        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+        'homeLink' => [
+          'label' => 'Home',
+          'url' => Yii::$app->homeUrl,
+          'class' => 'text-danger', 
+      ],
+    ]) ?>
+</div>
 
-    <h3 class="text-center text-danger my-3"><?= $this->title ?></h3>
     <div class="row">
     
     <?= DetailView::widget([
@@ -202,7 +228,7 @@ $this->title = 'View Project Details';
             'project_id' ,
             'name_of_module' ,
             'short_description',
-            'giz_intervention' ,
+            // 'giz_intervention' ,
             'duration' ,
             'av' ,
             'budget' ,

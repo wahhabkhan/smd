@@ -1,12 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 /** @var yii\web\View $this */
 /** @var array $models */
 
 $this->title = 'Contact View';
-//$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Stakeholder View', 'url' => ['stakeholder/view-stakeholder'],
+              'class' => 'text-danger'];
+
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +113,7 @@ $this->title = 'Contact View';
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
@@ -183,18 +186,38 @@ $this->title = 'Contact View';
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
 
 
   <div class="contact-view ms-5">
     <h4 class="text-center text-danger" style="margin-left: 95px"><?= Html::encode($this->title) ?></h4>
-
+    <div class=''>
+    <?= Breadcrumbs::widget([
+        'links' => $this->params['breadcrumbs'],
+        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+        'homeLink' => [
+          'label' => 'Home',
+          'url' => Yii::$app->homeUrl,
+          'class' => 'text-danger',
+          'style' => 'margin-left: 100px;' 
+      ],
+    ]) ?>
+    </div>
     <table style="margin-left:95px" class="table table-bordered ">
         <tr>
             <th>ID</th>
             <th>Stakeholder</th>
-            <th>Gender</th>
             <th>First Name</th>
             <th>Current Company</th>
             <th>Designation</th>
@@ -208,7 +231,6 @@ $this->title = 'Contact View';
             <tr>
                 <td><?=$model->id_contacts?></td>
                 <td><?= $model->stakeholder->stakeholder_category ?></td>
-                <td><?=$model->gender?></td>
                 <td><?=$model->first_name?></td>
                 <td><?=$model->current_company?></td>
                 <td><?=$model->designation?></td>

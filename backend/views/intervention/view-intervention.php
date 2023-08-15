@@ -110,11 +110,11 @@ $this->title = 'Intervention View';
   }
 
   .nav a:hover {
-    color: #1D438A; /* GIZ logo color */
+    color: red; /* GIZ logo color */
   }
 
   .menu-item:hover .arrow {
-    border-color: #1D438A; /* GIZ logo color */
+    border-color: red; /* GIZ logo color */
   }
   h2 {
       font-size: 24px;
@@ -184,6 +184,16 @@ $this->title = 'Intervention View';
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
 </div>
+
+<div class="menu-item" onclick="toggleSubMenu('user')">
+    <a href="">Users</a>
+    <i class="arrow down"></i>
+</div>
+<div class="sub-menu" id="user">
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/add-user'])?>">Add User</a>
+    <br>
+    <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
+</div>
     </nav>
   </div>
 
@@ -196,7 +206,6 @@ $this->title = 'Intervention View';
             <th>ID</th>
             <th>Name of Intervention</th>
             <th>component_manager</th>
-            <th>comments</th>
             <th>Action</th>
         </tr>
         <?php foreach ($models as $model): ?>
@@ -204,7 +213,6 @@ $this->title = 'Intervention View';
                 <td><?=$model->intervention_id?></td>
                 <td><?=$model->name_of_intervention?></td>
                 <td><?=$model->component_manager?></td>
-                <td><?=$model->comments?></td>
                 <td>
                     <div class="btn-group" role="group">
                     <?= Html::a('View', ['intervention/view-intervention-details', 'intervention_id' => $model->intervention_id], ['class' => 'btn  rounded btn-danger ms-1']) ?>

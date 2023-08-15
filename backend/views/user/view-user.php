@@ -1,14 +1,12 @@
 <?php
 
-use yii\widgets\DetailView;
-use yii\widgets\Breadcrumbs;
+use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Intervention */
+/** @var yii\web\View $this */
+/** @var array $models */
 
-$this->title = 'Intervention';
-$this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['intervention/view-intervention'],
-             'class'=>'text-danger'];
+$this->title = 'User View';
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <!DOCTYPE html>
@@ -140,15 +138,22 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">   
   <div class="sidebar">
     <div class="giz-logo-container">
       <img src="logo.png" alt="GIZ Logo" width="120">
     </div>
 
     <nav class="nav flex-column">
+    <div class="menu-item" onclick="toggleSubMenu('project')">
+        <a href="">Project</a>
+        <i class="arrow down"></i>
+      </div>
+      <div class="sub-menu" id="project">
+  <a href="<?=Yii::$app->urlManager->createUrl(['project/add-project'])?>">Add Project</a>
+  <br>
+  <a href="<?=Yii::$app->urlManager->createUrl(['project/view-project'])?>">View Project</a>
+</div>
+
     <div class="menu-item" onclick="toggleSubMenu('intervention')">
         <a href="">Intervention</a>
         <i class="arrow down"></i>
@@ -158,32 +163,23 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['intervention/view-intervention'])?>">View Intervention</a>
 </div>
-<div class="menu-item" onclick="toggleSubMenu('project')">
-        <a href="">Project</a>
+
+
+<div class="menu-item" onclick="toggleSubMenu('stakeholder')">
+        <a href="">Stakeholder</a>
         <i class="arrow down"></i>
       </div>
-      <div class="sub-menu" id="project">
-  <a href="<?=Yii::$app->urlManager->createUrl(['project/add-project'])?>">Add Project</a>
-  <br>
-  <a href="<?=Yii::$app->urlManager->createUrl(['project/view-project'])?>">View  Project</a>
-</div>
-
-    <div class="menu-item" onclick="toggleSubMenu('stakeholder')">
-  <a href="">Stakeholder</a>
-  <i class="arrow down"></i>
-</div>
 <div class="sub-menu" id="stakeholder">
   <a href="<?=Yii::$app->urlManager->createUrl(['stakeholder/add-stakeholder'])?>">Add Stakeholder</a>
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['stakeholder/view-stakeholder'])?>">View Stakeholder</a>
 </div>
 
-
 <div class="menu-item" onclick="toggleSubMenu('history')">
         <a href="">Interventions <br> History</a>
         <i class="arrow down"></i>
       </div>
-      <div class="sub-menu" id="history">
+<div class="sub-menu" id="history">
   <a href="<?=Yii::$app->urlManager->createUrl(['history/add-history'])?>">Add Interventions History</a>
   <br>
   <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions History</a>
@@ -198,45 +194,44 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
     <br>
     <a href="<?=Yii::$app->urlManager->createUrl(['user/view-user'])?>">View User</a>
 </div>
-    </nav>
+</nav>
   </div>
-  </div>
-  <?php
-  $intervetnionModel = $model->intervention_id;
-  ?>
-<div class="col-md-9">
-<div class="intervetnion-view">
-<div class="container">
-<h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $intervetnionModel?> <?="Details" ?></h3>
-    <?= Breadcrumbs::widget([
-        'links' => $this->params['breadcrumbs'],
-        'options' => ['class' => 'breadcrumb'],
-        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
-        'homeLink' => [
-          'label' => 'Home',
-          'url' => Yii::$app->homeUrl,
-          'class' => 'text-danger', 
-      ],
-    ]) ?>
+
+
+  <div class="user-view ms-5">
+    <h4 class="text-center text-danger" style="margin-left:95px"><?=Html::encode($this->title)?></h4>
+
+    <table style="margin-left:95px" class="table table-bordered ">
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>
+        <?php foreach ($models as $model): ?>
+            <tr>
+                <td><?=$model->id?></td>
+                <td><?=$model->email?></td>
+                <td><?=$model->password_hash?></td>
+                <td>
+                    <div class="btn-group" role="group">
+                    <?= Html::a('View', ['user/view-user-details', 'id' => $model->id], ['class' => 'btn  rounded btn-danger ms-1']) ?>
+                        <?=Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn rounded btn-danger ms-1'])?>
+                        <?=Html::a('Delete', ['delete', 'id' => $model->id], [
+    'class' => 'btn rounded btn-danger ms-1',
+    'data' => [
+        'confirm' => 'Are you sure you want to delete this item?',
+        'method' => 'post',
+    ],
+])?>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach;?>
+    </table>
 </div>
-    <div class="row">
-    
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'intervention_id' ,
-            'name_of_intervention',
-            'short_description' ,
-           // 'giz_module',
-            'component_manager' ,
-            'comments' 
-        ],
-    ]) ?>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
@@ -253,3 +248,4 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
 
     </body>
 </html>
+
