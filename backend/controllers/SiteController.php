@@ -9,6 +9,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use common\models\Stakeholder;
+use common\models\Users;
+
 
 /**
  * Site controller
@@ -111,20 +113,27 @@ public function actionFetchInterventionData()
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+    
         $this->layout = 'blank';
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+    
+        $model = new Users(); // Use your custom Users model
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = Users::findByUsername($model->username);
+            if ($user && $user->validatePassword($model->password_hash)) {
+                Yii::$app->user->login($user);
+                return $this->goBack();
+            }
         }
-
-        $model->password = '';
-
+    
+        $model->password_hash = ''; // Clear password before rendering
+    
         return $this->render('login', [
             'model' => $model,
         ]);
     }
+    
+    
+    
 
     /**
      * Logout action.

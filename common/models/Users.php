@@ -25,6 +25,9 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return [
             [['name', 'email', 'username', 'password_hash'], 'string', 'max' => 255],
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
+           // ['rememberMe', 'boolean'],
         ];
     }
 

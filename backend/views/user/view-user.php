@@ -204,14 +204,14 @@ $this->title = 'User View';
     <table style="margin-left:95px" class="table table-bordered ">
         <tr>
             <th>ID</th>
-            <th>Email</th>
+            <th>Username</th>
             <th>Password</th>
             <th>Action</th>
         </tr>
         <?php foreach ($models as $model): ?>
             <tr>
                 <td><?=$model->id?></td>
-                <td><?=$model->email?></td>
+                <td><?=$model->username?></td>
                 <td><?=$model->password_hash?></td>
                 <td>
                     <div class="btn-group" role="group">

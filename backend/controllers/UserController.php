@@ -75,9 +75,27 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    
+//     public function actionRegister()
+// {
+//     $model = new Users();
+    
+//     if ($model->load(Yii::$app->request->post())) {
+//         $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
 
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
+//         if ($model->save()) {
+//             // Authenticate the user after successful registration
+//             if (Yii::$app->user->login($model)) {
+//                 // Redirect the user to a specific page after registration and login
+//                 return $this->redirect(['site/index']);
+//             }
+//         }
+//     }
+    
+//     return $this->render('register', [
+//         'model' => $model,
+//     ]);
+// }
+
+
 }
