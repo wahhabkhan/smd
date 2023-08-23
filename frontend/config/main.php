@@ -7,6 +7,8 @@ $params = array_merge(
 );
 
 return [
+    'runtimePath' => dirname(__DIR__) . '/runtime',
+
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

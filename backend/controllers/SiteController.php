@@ -9,7 +9,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use common\models\Stakeholder;
+use common\models\History;
 use common\models\Users;
+use common\models\Intervention;
 
 
 /**
@@ -34,7 +36,7 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
-                    ],
+                    ], 
                 ],
             ],
             'verbs' => [
@@ -65,43 +67,44 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // Replace this example data with actual data fetched from the database
-        $stakeholderData = [
-            ['stakeholder_category' => 'multiplier'],
-            ['stakeholder_category' => 'brand'],
-            ['stakeholder_category' => 'factory'],
-            ['stakeholder_category' => 'association'],
-            // Add more stakeholders with their corresponding categories here.
-        ];
-    
-        return $this->render('index', ['stakeholderData' => $stakeholderData]);
+        $dbLocation = Stakeholder::getLocationDropdowns();
+        $dbCategory = History::getCategoryDropdowns();
+
+        // Fetch only the stakeholder_category data from the database
+        $params = [];
+        $location = Yii::$app->request->get('location');
+        $category = Yii::$app->request->get('location');
+        if($location)
+        {
+            $params[]=['=','organizational_location',$location];
+        }
+        if($category)
+        {
+            //$params[]=['=','']
+        }
+        $stakeHolderChartData = Stakeholder::getChartData($params);
+        $activitiesData = History::getChartData($params);
+        $activitiesGridData = History::getGridData($params);
+        $activitiesGridData2 = Intervention::getGridData2($params);
+      //  $model = History::findOne( $intervention_history_id );
+        $categoryCounts = Stakeholder::getCategoryCounts();
+
+        //var_dump($stakeholderCategories);exit();
+        return $this->render('index', [
+            'stakeholderCategories' => $stakeHolderChartData->label,
+            'stakeholderChartLabels'=>$stakeHolderChartData->label,
+            'stakeholderChartData'=>$stakeHolderChartData->data,
+            'activitiesGridData'=>$activitiesGridData,
+            'activitiesGridData2'=>$activitiesGridData2,
+            'locationData' =>$dbLocation,
+            'categoryData' =>$dbCategory,
+            'categoryCounts' => $categoryCounts,
+         
+
+        ]);
     }
-
-
-public function actionFetchInterventionData()
-{
-    $selectedLocation = Yii::$app->request->get('location');
-
-    // Fetch GIZ Interventions History data
-    $interventionsHistory = Yii::$app->db->createCommand("SELECT * FROM giz_interventions_history WHERE organizational_location = :location")
-        ->bindValue(':location', $selectedLocation)
-        ->queryAll();
-
-    // Fetch GIZ Intervention data
-    $gizIntervention = Yii::$app->db->createCommand("SELECT * FROM giz_intervention WHERE organizational_location = :location")
-        ->bindValue(':location', $selectedLocation)
-        ->queryAll();
-
-    // Return the data in JSON format
-    return Yii::$app->response->format = Response::FORMAT_JSON;
-    return [
-        'interventionsHistory' => $interventionsHistory,
-        'gizIntervention' => $gizIntervention,
-    ];
-}
-
-  
-  
+    
+    
 
     /**
      * Login action.

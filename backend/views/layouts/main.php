@@ -29,36 +29,37 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <header>
-    <?php
+        <?php
     NavBar::begin([
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-danger fixed-top', // Add justify-content-between class
+            'class' => 'navbar navbar-expand-md hover navbar-dark bg-danger fixed-top', // Add justify-content-between class
         ],
     ]);
     ?>
 
-    <!-- Logo section -->
-    <div class="navbar-brand">
-        <?= Html::img(Yii::$app->request->baseUrl . '/GIZ_LOGO.png', ['alt' => 'GIZ Logo', 'width' => '60']) ?>
-        <span class="ms-3"><?= Yii::$app->params['name'] ?></span> <!-- Brand label -->
-    </div>
+        <!-- Logo section -->
+        <div class="navbar-brand">
+            <?= Html::img(Yii::$app->request->baseUrl . '/GIZ_LOGO.png', ['alt' => 'GIZ Logo', 'width' => '60',
+            'linkOptions' => ['class' => 'mb-1']]) ?>
+        </div>
 
-    <?php
+        <?php
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'text-light']],
+        ['label' => 'TextILES', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'ms-2 text-light  mb-1']],
+        ['label' => 'Home', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'ms-2 text-light mb-1']],
         // Add more menu items as needed.
     ];
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login'],
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login mb-1 ms-1'],
     ];
     } else {
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
             'linkOptions' => [
-                'class' => 'logout text-light',
+                'class' => 'logout text-light mb-1 ms-1',
                 'data-method' => 'post', // This is the key part for sending a POST request
             ],
         ];
@@ -72,7 +73,7 @@ AppAsset::register($this);
     NavBar::end(); // Close the navbar here
     ?>
 
-</header>
+    </header>
 
     <main role="main" class="flex-shrink-0">
         <div class="container">

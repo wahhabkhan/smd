@@ -56,5 +56,57 @@ class History extends \yii\db\ActiveRecord
             'intervention_id' => 'Intervention',
         ];
     }
+    public static function getChartData($params=[])
+    {
+        $query = (new \yii\db\Query())
+        ->select(['stakeholder.stakeholder_category as stakeholder_category','count(stakeholder.stakeholder_category) as count'])
+        ->from(self::tableName())
+        ->join('INNER JOIN', 'stakeholder', self::tableName() . '.stakeholder_id = stakeholder.stakeholder_id');
 
+        $dbData = $query
+        ->groupBy('stakeholder.stakeholder_category')
+        ->all();
+        
+        $data=[];
+        $label = [];
+        foreach($dbData as $category)
+        {
+            $label[] = $category['stakeholder_category'];
+            $data[] = $category['count'];
+        }
+        return new class($label,$data) {
+            public $label;
+            public $data = [
+                
+            ];
+            public function __construct($label,$data=[]) {
+                $this->label = $label;
+                $this->data = $data;
+            }
+        };
+    }
+
+    public static function getGridData($params)
+    {
+        $query = (new \yii\db\Query())
+        ->from(self::tableName())
+        ->join('INNER JOIN', 'stakeholder', self::tableName() . '.stakeholder_id = stakeholder.stakeholder_id');
+        $query->where("1=1");
+        foreach($params as $param)
+        {
+            $query->andWhere($param);
+        }
+        // var_dump($params);
+        // exit();
+        return $query->all();
+
+    }
+    
+    public static function getCategoryDropdowns()
+    {
+       return  self::find()->select('giz_intervention')
+       ->where(['!=','giz_intervention',''])
+        ->groupBy('giz_intervention')
+        ->asArray()->all();
+    }
 }

@@ -1,4 +1,8 @@
-<?php $this->beginPage()?>
+<?php 
+use yii\grid\GridView;
+?>
+<?php
+$this->beginPage()?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,7 +141,7 @@
 <body>
 
     <body>
-        <div class="sidebar">
+        <div class="sidebar" style="background : #F1e6d8;">
 
             <nav class="nav flex-column">
                 <br><br>
@@ -205,48 +209,71 @@
                 private sector players. These contacts and trusted relationships have been instrumental for an
                 efficient, targeted and successful project implementation...</p>
             <div class="filters">
-                <select class="form-select" id="cityFilter" onchange="updateData()">
-                    <option selected>Select Organizational Location</option>
-                    <option value="sialkot">sialkot</option>
-                    <option value="islamabad">islamabad</option>
-                    <option value="lahore">lahore</option>
+                <form class='d-flex'>
+                    <select name="location" class="form-select w-100" id="cityFilter" onchange="updateData()">
+                        <option value='' selected>Select Location</option>
 
-                </select>
-                <select class="form-select" id="interventionFilter" onchange="updateData()">
-                    <option selected>Select Category</option>
-                    <option value="Digital Tools">Digital Tools</option>
-                    <option value="garments">garments</option>
-                    <option value="cricket ground construction">Cricket Ground Construction</option>
-                    <option value="Medicine Distribution">Medicine Distribution</option>
+                        <?php foreach($locationData as $location){ ?>
+                        <option value="<?= $location['organizational_location'] ?>">
+                            <?= $location['organizational_location'] ?></option>
+                        <?php } ?>
 
-                </select>
+                    </select>
+                    <select name="category" class="form-select ms-2 w-100" id="interventionFilter"
+                        onchange="updateData()">
+                        <option value='' selected>Select Category</option>
+
+                        <?php foreach($categoryData as $category){ ?>
+                        <option value="<?= $category['giz_intervention'] ?>"><?= $category['giz_intervention'] ?>
+                        </option>
+                        <?php } ?>
+
+                    </select>
+                    <button class="ms-2 btn-danger rounded">Filter</button>
+                </form>
             </div>
+
             <div class="row">
                 <div class="col-md-3">
-                    <div class="stat-box">
+                    <div class="w-75 stat-box">
                         <h5>Total Multipliers</h5>
-                        <p id="totalMultipliers">0</p>
+                        <p id="totalMultipliers">
+                        <?= $categoryCounts['multiplier'] ?>
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="stat-box">
-                        <h5>Total Brands</h5>
-                        <p id="totalBrands">0</p>
+                    <div class="w-75 stat-box">
+                        <h5>Total<br> Brands</h5>
+                        <p id="totalBrands">
+                        <?= $categoryCounts['brand'] ?>
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="stat-box">
+                    <div class="w-75 stat-box">
                         <h5>Total Factories</h5>
-                        <p id="totalFactories">0</p>
+                        <p id="totalFactories">
+                        <?= $categoryCounts['factory'] ?>
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="stat-box">
-                        <h5>Associations</h5>
-                        <p id="totalassociations">0</p>
+                    <div class="w-75 stat-box">
+                        <h5>Total Associations</h5>
+                        <p id="totalassociations">
+                        <?= $categoryCounts['association'] ?>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="w-75 stat-box">
+                        <h5>Government</h5>
+                        <p id="totalGovernment">
+                        <?= $categoryCounts['government'] ?>
                     </div>
                 </div>
             </div>
+
 
             <div class="container mt-4">
                 <div class="row">
@@ -260,39 +287,54 @@
             </div>
             <div class="table-responsive">
                 <h4>GIZ Interventions History</h4>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Year of Intervention</th>
-                            <th>GIZ Intervention</th>
-                            <th>Focal Person / Contact Person at the time</th>
-                            <th>Specifics / Details / Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyTableBody">
-
-                    </tbody>
-                </table>
+                <?php
+                 
+                    echo GridView::widget([
+                     
+                        'dataProvider' => new \yii\data\ArrayDataProvider([
+                            'allModels' => $activitiesGridData,
+                            'pagination' => [
+                                'pageSize' => 10, // Adjust as needed
+                            ],
+                        ]),
+                        'columns' => [
+                            'year_of_intervention',
+                            'giz_intervention',
+                            'focal_person',
+                            'comments',
+                          
+                          ],
+                    ]);
+               ?>
             </div>
 
             <div class="table-responsive">
                 <h4>GIZ Intervention</h4>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name of Intervention</th>
-                            <th>Short description of Intervention</th>
-                            <th>GIZ Module</th>
-                            <th>Component Manager + Technical Advisors</th>
-                            <th>Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody id="interventionTableBody">
+              
+              <?php
+            //    echo '<pre>';
+            //    print_r($activitiesGridData2); // Print the fetched data
+            //    echo '</pre>';   
+              ?>
 
-
-
-                    </tbody>
-                </table>
+                <?php
+                    echo GridView::widget([
+                        'dataProvider' => new \yii\data\ArrayDataProvider([
+                            'allModels' => $activitiesGridData2,
+                            'pagination' => [
+                                'pageSize' => 10, 
+                            ],
+                        ]),
+                        'columns' => [
+                            'name_of_intervention' ,
+                            'short_description' ,
+                          //  'giz_module' ,
+                            'component_manager' ,
+                            'comments',
+                             
+                        ],
+                    ]);
+               ?>
             </div>
 
         </div>
@@ -302,12 +344,10 @@
             var stakeholdersChart = new Chart(stakeholdersCtx, {
                 type: 'pie',
                 data: {
-                    labels: ['Government', 'Factories', 'Multipliers', 'Associations',
-                        'General Partners', 'Brands', 'Academia'
-                    ],
+                    labels: <?= json_encode($stakeholderChartLabels) ?>,
                     datasets: [{
                         label: 'Stakeholders',
-                        data: [12, 19, 8, 5, 20, 15, 10],
+                        data: <?= json_encode($stakeholderChartData)?>,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.8)',
                             'rgba(54, 162, 235, 0.8)',
@@ -343,12 +383,10 @@
             var activitiesChart = new Chart(activitiesCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Government', 'Factories', 'Multipliers', 'Associations',
-                        'General Partners', 'Brands', 'Academia'
-                    ],
+                    labels: <?= json_encode($stakeholderChartLabels)?>,
                     datasets: [{
-                        label: 'Activities',
-                        data: [9, 15, 7, 8, 12, 14, 4],
+                        label: '',
+                        data: <?= json_encode($stakeholderChartData)?>,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.8)',
                             'rgba(54, 162, 235, 0.8)',
@@ -387,66 +425,52 @@
         </script>
 
         <script>
-        // function updateData() {
-        //   let selectedCity = cityFilter.options[cityFilter.selectedIndex].value;
-        //   let selectedIntervention = interventionFilter.options[interventionFilter.selectedIndex].value;
-
-        //   fetch(`ajax/ajax_handler.php?city=${selectedCity}&intervention=${selectedIntervention}`)
-
-        //     .then(response => response.json())
-        //     .then(data => {
-        //       // Update the GIZ Intervention History table
-        //       const historyTable = document.getElementById('historyTableBody');
-        //       historyTable.innerHTML = ''; // Clear existing rows
-        //       data.history.forEach(row => {
-        //         const newRow = document.createElement('tr');
-        //         newRow.innerHTML = `
-        //           <td>${row.year_of_intervention}</td>
-        //           <td>${row.giz_intervention}</td>
-        //           <td>${row.focal_person}</td>
-        //           <td>${row.comments}</td>
-        //         `;
-        //         historyTable.appendChild(newRow);
-        //       });
-
-        //       // Update the GIZ Intervention table
-        //       const interventionTable = document.getElementById('interventionTableBody');
-        //       interventionTable.innerHTML = ''; // Clear existing rows
-        //       data.interventions.forEach(row => {
-        //         const newRow = document.createElement('tr');
-        //         newRow.innerHTML = `
-        //           <td>${row.name_of_intervention}</td>
-        //           <td>${row.short_description}</td>
-        //           <td>${row.giz_module}</td>
-        //           <td>${row.component_manager}</td>
-        //           <td>${row.comments}</td>
-        //         `;
-        //         interventionTable.appendChild(newRow);
-        //       });
-        //       console.log(selectedCity, selectedIntervention);
-        //     })
-        //     .catch(error => console.error('Error fetching data:', error));
-        // }
-        </script>
-
-
-        <script>
-        function updateStats() {
-            // Replace the following example values with your actual data
-            const totalMultipliers = 100;
-            const totalBrands = 200;
-            const totalFactories = 300;
-            const totalassociations = 50;
-
-            document.getElementById("totalMultipliers").innerText = totalMultipliers;
-            document.getElementById("totalBrands").innerText = totalBrands;
-            document.getElementById("totalFactories").innerText = totalFactories;
-            document.getElementById("totalassociations").innerText = totalassociations;
+        function updateData() {
+            let selectedCity = cityFilter.options[cityFilter.selectedIndex].value;
+            let selectedIntervention = interventionFilter.options[interventionFilter.selectedIndex].value;
+            //implement logic
         }
-
-        // Call the updateStats function when the page loads
-        updateStats();
         </script>
+
+
+        <!-- <script>
+    var stakeholderData = 
+    
+    // Process the fetched data and update the HTML content dynamically based on stakeholder categories.
+    function updateStats() {
+        var totalMultipliers = 0;
+        var totalBrands = 0;
+        var totalFactories = 0;
+        var totalAssociations = 0;
+
+        stakeholderData.forEach(function(stakeholder) {
+            switch (stakeholder.stakeholder_category) {
+                case 'multiplier':
+                    totalMultipliers++;
+                    break;
+                case 'brand':
+                    totalBrands++;
+                    break;
+                case 'factory':
+                    totalFactories++;
+                    break;
+                case 'association':
+                    totalAssociations++;
+                    break;
+            }
+        });
+
+        document.getElementById('totalMultipliers').textContent = totalMultipliers;
+        document.getElementById('totalBrands').textContent = totalBrands;
+        document.getElementById('totalFactories').textContent = totalFactories;
+        document.getElementById('totalAssociations').textContent = totalAssociations;
+    }
+
+    // Call the function to initially update the stats based on the fetched data.
+    updateStats();
+</script> -->
+
+
         <script>
         function toggleSubMenu(id) {
             const subMenu = document.getElementById(id);
@@ -456,10 +480,6 @@
             arrow.classList.toggle('up');
         }
         </script>
-
-
-
-
 
 
     </body>

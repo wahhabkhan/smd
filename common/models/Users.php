@@ -62,13 +62,13 @@ class Users extends ActiveRecord implements IdentityInterface
 
     public function getAuthKey()
     {
-        // Implement if needed
+       
         return null;
     }
 
     public function validateAuthKey($authKey)
     {
-        // Implement if needed
+        
         return false;
     }
 

@@ -172,12 +172,20 @@ $this->params['breadcrumbs'][] = ['label' => 'Stakeholder View', 'url' => ['stak
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div class="sidebar">
-                    <div class="giz-logo-container">
-                        <img src="logo.png" alt="GIZ Logo" width="120">
-                    </div>
+                <div class="sidebar" style="background : #F1e6d8;">
 
                     <nav class="nav flex-column">
+                        <br><br>
+                        <div class="menu-item" onclick="toggleSubMenu('project')">
+                            <a href="">Project</a>
+                            <i class="arrow down"></i>
+                        </div>
+                        <div class="sub-menu" id="project">
+                            <a href="<?=Yii::$app->urlManager->createUrl(['project/add-project'])?>">Add Project</a>
+                            <br>
+                            <a href="<?=Yii::$app->urlManager->createUrl(['project/view-project'])?>">View Project</a>
+                        </div>
+
                         <div class="menu-item" onclick="toggleSubMenu('intervention')">
                             <a href="">Intervention</a>
                             <i class="arrow down"></i>
@@ -188,15 +196,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Stakeholder View', 'url' => ['stak
                             <br>
                             <a href="<?=Yii::$app->urlManager->createUrl(['intervention/view-intervention'])?>">View
                                 Intervention</a>
-                        </div>
-                        <div class="menu-item" onclick="toggleSubMenu('project')">
-                            <a href="">Project</a>
-                            <i class="arrow down"></i>
-                        </div>
-                        <div class="sub-menu" id="project">
-                            <a href="<?=Yii::$app->urlManager->createUrl(['project/add-project'])?>">Add Project</a>
-                            <br>
-                            <a href="<?=Yii::$app->urlManager->createUrl(['project/view-project'])?>">View Project</a>
                         </div>
 
                         <div class="menu-item" onclick="toggleSubMenu('stakeholder')">
@@ -236,6 +235,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Stakeholder View', 'url' => ['stak
                     </nav>
                 </div>
             </div>
+
             <?php
   $stakeholderModel = $model->stakeholder_id;
   ?>

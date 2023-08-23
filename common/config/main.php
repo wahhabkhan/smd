@@ -1,5 +1,7 @@
 <?php
 return [
+    'runtimePath' => dirname(__DIR__) . '/runtime',
+
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',

@@ -36,4 +36,29 @@ class Intervention extends \yii\db\ActiveRecord
              'comments' => 'Comments',
          ];
      }
+
+     public static function getGridData2($params)
+     {
+         $query = (new \yii\db\Query())
+             ->from('giz_interventions_history')
+             ->join('INNER JOIN', 'giz_intervention', 'giz_interventions_history.intervention_id = giz_intervention.intervention_id')
+             ->join('INNER JOIN', 'stakeholder', 'giz_interventions_history.stakeholder_id = stakeholder.stakeholder_id') // Join with the stakeholder table
+             ->select([
+               //  'giz_intervention.year_of_intervention',
+                 'giz_intervention.name_of_intervention',
+                 'giz_intervention.short_description',
+                 'giz_intervention.component_manager',
+                 'giz_intervention.comments',
+                 'stakeholder.organizational_location' 
+             ]);
+     
+         $query->where("1=1");
+         foreach ($params as $param) {
+             $query->andWhere($param);
+         }
+         
+         return $query->all();
+     }
+     
+     
 }
