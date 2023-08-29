@@ -13,7 +13,6 @@ $this->title = 'Update Contact: ' . $model->id_contacts;
 <div class="Contact-update">
 
     <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
-    <hr>
     <?= $this->render('add-contact', [
         'model' => $model,
     ]) ?>

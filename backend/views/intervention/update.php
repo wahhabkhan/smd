@@ -13,7 +13,7 @@ $this->title = 'Update Intervention: ' . $model->intervention_id;
 <div class="Intervention-update">
 
     <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
-    <hr>
+    
     <?= $this->render('add-intervention', [
         'model' => $model,
     ]) ?>

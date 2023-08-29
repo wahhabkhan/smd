@@ -24,10 +24,11 @@ class Users extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'email', 'username', 'password_hash'], 'string', 'max' => 255],
+            [['name', 'email'], 'string', 'max' => 255],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
            // ['rememberMe', 'boolean'],
+           [['password_hash', 'username'], 'required'],
         ];
     }
 

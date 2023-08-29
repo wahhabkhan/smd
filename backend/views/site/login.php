@@ -16,9 +16,9 @@ $this->title = 'Login';
 
         <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password_hash')->passwordInput()->error() ?>
 
-            <?= $form->field($model, 'password_hash')->passwordInput() ?>
 
            
             <div class="form-group">

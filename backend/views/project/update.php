@@ -13,7 +13,7 @@ $this->title = 'Update Project: ' . $model->project_id;
 <div class="Project-update">
 
     <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
-    <hr>
+    
     <?= $this->render('add-project', [
         'model' => $model,
     ]) ?>

@@ -3,18 +3,18 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\Government $model */
+/** @var app\models\Stakeholder $model */
 
-$this->title = 'Update Government: ' . $model->stakeholder_id;
-//$this->params['breadcrumbs'][] = ['label' => 'Government', 'url' => ['index']];
+$this->title = 'Update Stakeholder: ' . $model->stakeholder_id;
+//$this->params['breadcrumbs'][] = ['label' => 'Stakeholder', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 //$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="Government-update">
+<div class="Stakeholder-update">
 
-    <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
-    <hr>
-    <?= $this->render('add-government', [
+ <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
+    
+    <?= $this->render('add-stakeholder', [
         'model' => $model,
     ]) ?>
 

@@ -119,16 +119,21 @@ class SiteController extends Controller
     
         $this->layout = 'blank';
     
-        $model = new Users(); // Use your custom Users model
+        $model = new Users(); 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = Users::findByUsername($model->username);
             if ($user && $user->validatePassword($model->password_hash)) {
                 Yii::$app->user->login($user);
                 return $this->goBack();
             }
+            else {
+                
+              //  $model->addError('username', 'Incorrect username or password.');
+                $model->addError('password_hash', 'Incorrect username or password.');
+            }
         }
     
-        $model->password_hash = ''; // Clear password before rendering
+        $model->password_hash = ''; 
     
         return $this->render('login', [
             'model' => $model,

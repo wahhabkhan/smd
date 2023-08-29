@@ -13,7 +13,7 @@ $this->title = 'Update Interventions History: ' . $model->intervention_history_i
 <div class="History-update">
 
     <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
-    <hr>
+   
     <?= $this->render('add-history', [
         'model' => $model,
     ]) ?>
