@@ -38,6 +38,7 @@ $this->title = 'Intervention History View';
                 <td><?= $model->intervention_history_id ?></td>
                 <td><?= $model->year_of_intervention ?></td>
                 <td><?= $model->stakeholder->stakeholder_category ?></td>
+
                 <td><?= $model->project->name_of_module ?></td>
 
                 <td>
@@ -45,11 +46,11 @@ $this->title = 'Intervention History View';
                         <?= Html::a('View', ['history/view-history-details', 'intervention_history_id' => $model->intervention_history_id], ['class' => 'btn  rounded btn-danger ms-1']) ?>
                         <?= Html::a('Update', ['update', 'intervention_history_id' => $model->intervention_history_id], ['class' => 'btn rounded btn-danger ms-1']) ?>
                         <?= Html::a('Delete', ['delete', 'intervention_history_id' => $model->intervention_history_id], ['class' => 'btn rounded btn-danger ms-1',
-                        'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
                     </div>
                 </td>
             </tr>

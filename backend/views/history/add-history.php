@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use common\models\Stakeholder;
 use common\models\Project;
 use common\models\Intervention;
+use kartik\select2\Select2;
 
 // Rest of your code
 
@@ -28,7 +29,7 @@ use common\models\Intervention;
 
                 <?php
         $stakeholders = Stakeholder::find()->all();
-        $stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'stakeholder_category');
+        $stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'organization_name');
 
         $projects = Project::find()->all();
         $projectList = ArrayHelper::map($projects, 'project_id', 'name_of_module');
@@ -48,25 +49,35 @@ use common\models\Intervention;
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'stakeholder_id')->dropDownList(
-            $stakeholderList,
-            ['prompt' => 'Select Stakeholder'],
-        ) ?>
+                
+               <?= $form->field($model, 'selectedStakeholderIds')->widget(Select2::classname(), [
+               'data' => $stakeholderList,
+               'options' => [
+                              'placeholder' => 'Select Stakeholders',
+                              'multiple' => true,
+               ],
+               'pluginOptions' => [
+                              'allowClear' => true,
+               ],
+               'value' => $model->selectedStakeholderIds, // Set selected values
+               ]); ?>
+
 
                 <?= $form->field($model, 'project_id')->dropDownList(
-            $projectList,
-            ['prompt' => 'Select Project']
-        ) ?>
+               $projectList,
+               ['prompt' => 'Select Project']
+               ) ?>
                 <?= $form->field($model, 'intervention_id')->dropDownList(
-            $interventionList,
-            ['prompt' => 'Select Intervention']
-        ) ?>
+               $interventionList,
+               ['prompt' => 'Select Intervention']
+               ) ?>
 
                 <?=$form->field($model, 'year_of_intervention')->dropDownList(
-    $years,
-    ['prompt' => 'Select Year']
-    )?>
+                $years,
+                ['prompt' => 'Select Year']
+                )?>
 
+                <?=$form->field($model, 'giz_intervention')->textInput(['maxlength' => true])?>
                 <?=$form->field($model, 'focal_person')->textInput(['maxlength' => true])?>
                 <?=$form->field($model, 'comments')->textArea(['maxlength' => true])?>
 

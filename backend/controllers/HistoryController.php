@@ -7,6 +7,7 @@ use common\models\Stakeholder;
 use yii\web\Controller;
 use Yii;
 use yii\web\ForbiddenHttpException;
+use yii\helpers\ArrayHelper;
 
 class HistoryController extends Controller
  {
@@ -25,36 +26,54 @@ class HistoryController extends Controller
         ] );
     }
 
-    public function actionViewHistoryDetails( $intervention_history_id )
- {
-        // Fetch the History record to ensure it exists
-        $model = History::findOne( $intervention_history_id );
-
-        return $this->render( 'view-history-details', [
+    public function actionViewHistoryDetails($intervention_history_id)
+    {
+        $model = History::findOne($intervention_history_id);
+        
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
+        return $this->render('view-history-details', [
             'model' => $model,
-        ] );
+        ]);
     }
+    
 
     public function actionAddHistory()
- {
-        if ( Yii::$app->user->can( 'create' ) ) {
+    {
+        if (Yii::$app->user->can('create')) {
             $model = new History();
-
-            if ( $this->request->isPost ) {
-                if ( $model->load( $this->request->post() ) && $model->save() ) {
-                    return $this->redirect( [ 'view-history', 'intervention_history_id' => $model->intervention_history_id ] );
+    
+            $stakeholders = Stakeholder::find()->all();
+            $stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'organization_name');
+    
+            if ($this->request->isPost) {
+                $selectedStakeholderIds = $this->request->post('History')['selectedStakeholderIds'];
+    
+                foreach ($selectedStakeholderIds as $stakeholderId) {
+                    $newModel = new History();
+                    $newModel->load($this->request->post());
+                    $newModel->stakeholder_id = $stakeholderId;
+                
+                    if (!$newModel->save()) {
+                        
+                    }
                 }
-            } else {
-                $model->loadDefaultValues();
+    
+                return $this->redirect(['view-history', 'intervention_history_id' => $model->intervention_history_id]);
             }
-
-            return $this->render( 'add-history', [
+    
+            return $this->render('add-history', [
                 'model' => $model,
-            ] );
+                'stakeholderList' => $stakeholderList,
+            ]);
         } else {
             throw new ForbiddenHttpException;
         }
     }
+    
+    
 
     public function actionUpdate( $intervention_history_id )
  {
@@ -67,6 +86,7 @@ class HistoryController extends Controller
 
             return $this->render( 'update', [
                 'model' => $model,
+//                'stakeholderList' => $stakeholderList,
             ] );
         } else {
             throw new ForbiddenHttpException;

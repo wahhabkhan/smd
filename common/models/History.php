@@ -6,9 +6,15 @@ use Yii;
 
 class History extends \yii\db\ActiveRecord
 {
+    
+    
     /**
      * {@inheritdoc}
      */
+    public $selectedStakeholderIds = [];    
+    public $stakeholderCategoryArray = [];
+    public $stakeholder_ids;
+    
     public static function tableName()
     {
         return 'giz_interventions_history';

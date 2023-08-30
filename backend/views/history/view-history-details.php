@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention History View', 'url' 
             'comments' ,
             [
                 'attribute' => 'stakeholder_id',
-                'value' => $model->stakeholder->stakeholder_category,
+            'value' => isset($model->stakeholder) ? $model->stakeholder->stakeholder_category : '',
+                
             ],
             [
                 'attribute' => 'project_id',
