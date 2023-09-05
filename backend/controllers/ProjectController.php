@@ -34,26 +34,27 @@ class ProjectController extends Controller
     }
 
     public function actionAddProject()
- {
-        if ( Yii::$app->user->can( 'create' ) ) {
+    {
+        if (Yii::$app->user->can('create')) {
             $model = new Project();
-
-            if ( $this->request->isPost ) {
-                if ( $model->load( $this->request->post() ) && $model->save() ) {
-                    return $this->redirect( [ 'view-project', 'project_id' => $model->project_id ] );
+    
+            if ($model->load($this->request->post())) {
+                // Combine start_date and end_date into a formatted duration string
+                $model->duration = $model->start_date . ' to ' . $model->end_date;
+    
+                if ($model->save()) {
+                    return $this->redirect(['view-project', 'project_id' => $model->project_id]);
                 }
-            } else {
-                $model->loadDefaultValues();
             }
-
-            return $this->render( 'add-project', [
+    
+            return $this->render('add-project', [
                 'model' => $model,
-            ] );
+            ]);
         } else {
             throw new ForbiddenHttpException;
         }
-
     }
+    
 
     public function actionUpdate( $project_id )
  {

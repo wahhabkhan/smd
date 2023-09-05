@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 // Rest of your code
 
@@ -33,7 +34,15 @@ use yii\widgets\ActiveForm;
 
                 <!-- <?=$form->field($model, 'giz_intervention')->textInput(['maxlength' => true])?> -->
 
-                <?=$form->field($model, 'duration')->textInput(['maxlength' => true])?>
+                <?= $form->field($model, 'start_date')->widget(DatePicker::classname(), [
+    'options' => ['class' => 'form-control'],
+    'dateFormat' => 'yyyy-MM-dd', 
+]) ?>
+
+<?= $form->field($model, 'end_date')->widget(DatePicker::classname(), [
+    'options' => ['class' => 'form-control'],
+    'dateFormat' => 'yyyy-MM-dd', 
+]) ?>
 
                 <?=$form->field($model, 'av')->textInput(['maxlength' => true])?>
 

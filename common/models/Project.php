@@ -9,6 +9,8 @@ class Project extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $start_date;
+    public $end_date;
     public static function tableName()
     {
         return 'giz_project';
@@ -21,7 +23,8 @@ class Project extends \yii\db\ActiveRecord
      public function rules()
      {
          return [
-             [['name_of_module', 'short_description', 'giz_intervention', 'duration', 'av', 'budget', 'comments'], 'string', 'max' => 255],
+             [['name_of_module', 'short_description', 'giz_intervention', 'duration', 'av', 'budget', 'comments'
+             , 'start_date', 'end_date'], 'string', 'max' => 255],
          ];
      }
  
