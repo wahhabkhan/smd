@@ -38,10 +38,7 @@ $project = [
 
                 <?php $form = ActiveForm::begin();?>
 
-                <?=$form->field($model, 'name_of_intervention')->dropDownList(
-    $intervention,
-    ['prompt' => 'Select Intervention']
-)?>
+                <?=$form->field($model, 'name_of_intervention')->textInput(['maxlength' => true])?>
 
                 <?=$form->field($model, 'short_description')->textArea(['maxlength' => true])?>
 

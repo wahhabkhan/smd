@@ -42,25 +42,33 @@ class StakeholderController extends Controller
     }
 
     public function actionAddStakeholder()
- {
-        if ( Yii::$app->user->can( 'create' ) ) {
+    {
+        if (Yii::$app->user->can('create')) {
             $model = new Stakeholder();
-
-            if ( $this->request->isPost ) {
-                if ( $model->load( $this->request->post() ) && $model->save() ) {
-                    return $this->redirect( [ 'view-stakeholder', 'stakeholder_id' => $model->stakeholder_id ] );
+    
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
+                    $category = $model->stakeholder_category;
+    
+                    if ($model->save()) {
+                        return $this->redirect(['view-stakeholder-details', 'stakeholder_id' => $model->stakeholder_id]);
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Failed to save stakeholder data.');
+                    }
                 }
             } else {
                 $model->loadDefaultValues();
             }
-
-            return $this->render( 'add-stakeholder', [
+    
+            return $this->render('add-stakeholder', [
                 'model' => $model,
-            ] );
+            ]);
         } else {
             throw new ForbiddenHttpException;
         }
     }
+    
+    
 
     public function actionUpdate( $stakeholder_id )
  {

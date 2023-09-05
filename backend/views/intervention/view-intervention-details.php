@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Intervention View', 'url' => ['int
             'intervention_id' ,
             'name_of_intervention',
             'short_description' ,
-           // 'giz_module',
+            'giz_module',
             'component_manager' ,
             'comments' 
         ],

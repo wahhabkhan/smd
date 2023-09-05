@@ -27,7 +27,7 @@ use yii\helpers\ArrayHelper;
 
 <?php
 $stakeholders = Stakeholder::find()->all();
-$stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'stakeholder_category');
+$stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'organization_name');
 
         $gender =[
          'Male' => 'Male',

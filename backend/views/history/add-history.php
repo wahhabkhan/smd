@@ -50,7 +50,7 @@ use kartik\select2\Select2;
                 <?php $form = ActiveForm::begin(); ?>
 
                 
-               <?= $form->field($model, 'selectedStakeholderIds')->widget(Select2::classname(), [
+               <?= $form->field($model, 'Stakeholders')->widget(Select2::classname(), [
                'data' => $stakeholderList,
                'options' => [
                               'placeholder' => 'Select Stakeholders',
@@ -59,7 +59,7 @@ use kartik\select2\Select2;
                'pluginOptions' => [
                               'allowClear' => true,
                ],
-               'value' => $model->selectedStakeholderIds, // Set selected values
+               'value' => $model->Stakeholders, 
                ]); ?>
 
 

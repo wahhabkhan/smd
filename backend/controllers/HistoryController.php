@@ -49,9 +49,9 @@ class HistoryController extends Controller
             $stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'organization_name');
     
             if ($this->request->isPost) {
-                $selectedStakeholderIds = $this->request->post('History')['selectedStakeholderIds'];
+                $Stakeholders = $this->request->post('History')['Stakeholders'];
     
-                foreach ($selectedStakeholderIds as $stakeholderId) {
+                foreach ($Stakeholders as $stakeholderId) {
                     $newModel = new History();
                     $newModel->load($this->request->post());
                     $newModel->stakeholder_id = $stakeholderId;

@@ -45,7 +45,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Stakeholder View', 'url' => ['stak
           'class' => 'text-danger', 
       ],
     ]) ?>
-                        <div class="row">
+                </div>
+                <div class="row">
 
                             <?= DetailView::widget([
         'model' => $model,

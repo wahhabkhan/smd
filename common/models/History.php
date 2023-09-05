@@ -11,7 +11,7 @@ class History extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public $selectedStakeholderIds = [];    
+    public $Stakeholders = [];    
     public $stakeholderCategoryArray = [];
     public $stakeholder_ids;
     
