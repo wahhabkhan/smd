@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use common\models\Stakeholder;
+use common\models\Contact;
+use common\models\History; 
 use yii\web\Controller;
 use Yii;
 use yii\web\ForbiddenHttpException;
@@ -21,8 +23,6 @@ class StakeholderController extends Controller
             'brand' => 'Brand',
         ];
 
-        // Fetch stakeholders data from the database and other necessary data
-        // ...
 
         return $this->render( 'view-stakeholder', [
             'stakeholder' => $stakeholder,
@@ -87,16 +87,28 @@ class StakeholderController extends Controller
         }
     }
 
-    public function actionDelete( $stakeholder_id )
- {
-        if ( Yii::$app->user->can( 'delete' ) ) {
-            $this->findModel( $stakeholder_id )->delete();
+    public function actionDelete($stakeholder_id)
+    {
+        // Check if there are associated contact records
+        $hasContacts = Contact::find()->where(['stakeholder_id' => $stakeholder_id])->exists();
+    
+        // Check if there are associated giz_interventions_history records
+        $hasInterventionsHistory = History::find()->where(['stakeholder_id' => $stakeholder_id])->exists();
+    
+        if ($hasContacts || $hasInterventionsHistory) {
+            Yii::$app->session->setFlash('danger', '*********************************Cannot delete the stakeholder because there are associated records in History/Contacts Tables***********************', [
+                'class' => ' mt-5',
+            ]);
+            
 
-            return $this->redirect( [ 'view-stakeholder' ] );
+            
         } else {
-            throw new ForbiddenHttpException;
+            $this->findModel($stakeholder_id)->delete();
         }
+    
+        return $this->redirect( [ 'view-stakeholder' ] ); // Redirect to the appropriate page
     }
+    
 
     protected function findModel( $stakeholder_id )
  {

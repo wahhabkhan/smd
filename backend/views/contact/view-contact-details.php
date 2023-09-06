@@ -50,7 +50,7 @@ $this->title = 'Contact View';
         'attributes' => [
             'id_contacts',
             [
-                'attribute' => 'stakeholder_id',
+                'attribute' => 'stakeholder_category',
                 'value' => $model->stakeholder->stakeholder_category,
             ],
             'contact_category',

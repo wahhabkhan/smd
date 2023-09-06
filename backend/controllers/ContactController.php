@@ -32,62 +32,68 @@ class ContactController extends Controller
         ] );
     }
 
-    // public function actionIndex( $id_contacts )
-    // {
-    //     $model = Contact::findOne( $id_contacts );
-    //     return $this->render( 'view-contact', [
-    //         'models' => $contacts,
-    // ] );
-    // }
-
-    public function actionAddContact()
- {
-        if ( Yii::$app->user->can( 'create' ) ) {
+    public function actionAddContact($stakeholder_id = null)
+    {
+        if (Yii::$app->user->can('create')) {
             $model = new Contact();
-
-            if ( $this->request->isPost ) {
-                if ( $model->load( $this->request->post() ) && $model->save() ) {
-                    return $this->redirect( [ 'view-contact', 'id_contacts' => $model->id_contacts ] );
-                }
-            } else {
+    
+            // Assign the stakeholder_id to the model, if available
+            if ($stakeholder_id !== null) {
+                $model->stakeholder_id = $stakeholder_id;
+            }
+    
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view-contact', 'id_contacts' => $model->id_contacts, 'stakeholder_id' => $model->stakeholder_id]);
+            }
+             else {
                 $model->loadDefaultValues();
             }
-
-            return $this->render( 'add-contact', [
+    
+            return $this->render('add-contact', [
                 'model' => $model,
-            ] );
+                'stakeholder_id' => $stakeholder_id, // Pass the variable to the view
+            ]);
         } else {
             throw new ForbiddenHttpException;
         }
     }
+  
 
-    public function actionUpdate( $id_contacts )
- {
-        if ( Yii::$app->user->can( 'update' ) ) {
-            $model = $this->findModel( $id_contacts );
-
-            if ( $this->request->isPost && $model->load( $this->request->post() ) && $model->save() ) {
-                return $this->redirect( [ 'view-contact', 'id_contacts' => $model->id_contacts ] );
+    public function actionUpdate($id_contacts)
+    {
+        // Find the contact record to update
+        $model = $this->findModel($id_contacts);
+    
+        // Get the stakeholder_id from the contact model
+        $stakeholder_id = $model->stakeholder_id;
+    
+        if (Yii::$app->user->can('update')) {
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view-contact', 'id_contacts' => $model->id_contacts, 'stakeholder_id' => $stakeholder_id]);
             }
-
-            return $this->render( 'update', [
+    
+            return $this->render('add-contact', [
                 'model' => $model,
-            ] );
+                'stakeholder_id' => $stakeholder_id, // Pass the variable to the view
+            ]);
         } else {
             throw new ForbiddenHttpException;
         }
     }
-
-    public function actionDelete( $id_contacts )
- {
-        if ( Yii::$app->user->can( 'delete' ) ) {
-            $this->findModel( $id_contacts )->delete();
-
-            return $this->redirect( [ 'view-contact' ] );
+ 
+    public function actionDelete($id_contacts)
+    {
+        if (Yii::$app->user->can('delete')) {
+            $model = $this->findModel($id_contacts);
+            $stakeholder_id = $model->stakeholder_id; // Get the stakeholder_id before deletion
+            $model->delete();
+    
+            return $this->redirect(['view-contact', 'stakeholder_id' => $stakeholder_id]);
         } else {
             throw new ForbiddenHttpException;
         }
     }
+    
 
     protected function findModel( $id_contacts )
  {

@@ -16,10 +16,6 @@ class Project extends \yii\db\ActiveRecord
         return 'giz_project';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-
      public function rules()
      {
          return [

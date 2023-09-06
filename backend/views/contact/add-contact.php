@@ -38,7 +38,8 @@ $stakeholderList = ArrayHelper::map($stakeholders, 'stakeholder_id', 'organizati
 
                 <h3 class="text-center text-danger mb-4">Contact Form</h3>
 
-                <?php $form = ActiveForm::begin();?>
+                <?php $form = ActiveForm::begin(); ?>
+
 
                 <?= $form->field($model, 'stakeholder_id')->dropDownList(
             $stakeholderList,
