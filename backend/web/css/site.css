@@ -88,4 +88,21 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+/* Custom styles for flash messages */
+.alert {
+    margin: 10px 0; /* Adjust margin as needed */
+}
+
+/* Style error messages with red background */
+.alert-danger {
+    background-color: #f8d7da; /* Customize the background color */
+    color: #721c24; /* Customize the text color */
+    border: 1px solid #f5c6cb; /* Customize the border color */
+    border-radius: 4px; /* Add border radius */
+    padding: 10px 15px; /* Add padding */
+}
+
+
+
+
 

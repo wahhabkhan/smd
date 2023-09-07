@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Intervention;
 use yii\web\Controller;
+use common\models\History;
 use Yii;
 use yii\web\ForbiddenHttpException;
 
@@ -76,9 +77,18 @@ class InterventionController extends Controller
     public function actionDelete( $intervention_id )
  {
         if ( Yii::$app->user->can( 'delete' ) ) {
-            $this->findModel( $intervention_id )->delete();
+            // Check if there are associated giz_interventions_history records
+            $hasInterventionsHistory = History::find()->where( [ 'intervention_id' => $intervention_id ] )->exists();
 
-            return $this->redirect( [ '/site/index' ] );
+            if ( $hasInterventionsHistory ) {
+                Yii::$app->session->setFlash( 'error', '--------------------------------------Cannot delete the `Intervention` because there are associated records in `Interventions History`-------------------------' );
+
+            } else {
+                $this->findModel( $intervention_id )->delete();
+            }
+
+            return $this->redirect( [ 'view-intervention' ] );
+
         } else {
             throw new ForbiddenHttpException;
         }

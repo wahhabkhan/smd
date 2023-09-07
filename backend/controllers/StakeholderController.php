@@ -89,6 +89,7 @@ class StakeholderController extends Controller
 
     public function actionDelete($stakeholder_id)
     {
+        if ( Yii::$app->user->can( 'delete' ) ) {
         // Check if there are associated contact records
         $hasContacts = Contact::find()->where(['stakeholder_id' => $stakeholder_id])->exists();
     
@@ -96,17 +97,17 @@ class StakeholderController extends Controller
         $hasInterventionsHistory = History::find()->where(['stakeholder_id' => $stakeholder_id])->exists();
     
         if ($hasContacts || $hasInterventionsHistory) {
-            Yii::$app->session->setFlash('danger', '*********************************Cannot delete the stakeholder because there are associated records in History/Contacts Tables***********************', [
-                'class' => ' mt-5',
-            ]);
-            
-
+            Yii::$app->session->setFlash('error', '--------------------------------Cannot delete the `Stakeholder` because there are associated records in `Intervention History/Contacts`--------------------');
             
         } else {
             $this->findModel($stakeholder_id)->delete();
         }
     
-        return $this->redirect( [ 'view-stakeholder' ] ); // Redirect to the appropriate page
+        return $this->redirect( [ 'view-stakeholder' ] ); 
+    }
+    else{
+        throw new ForbiddenHttpException; 
+    }
     }
     
 
