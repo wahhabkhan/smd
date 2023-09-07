@@ -54,6 +54,7 @@ use kartik\select2\Select2;
                'data' => $stakeholderList,
                'options' => [
                               'placeholder' => 'Select Stakeholders',
+                              'class' => '',
                               'multiple' => true,
                ],
                'pluginOptions' => [
