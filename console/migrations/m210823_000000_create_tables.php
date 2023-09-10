@@ -85,155 +85,6 @@ class m210823_000000_create_tables extends Migration
         DEFAULT CHARACTER SET = utf8mb4;
         
         
-        -- -----------------------------------------------------
-        -- Table `stakeholder`
-        -- -----------------------------------------------------
-        CREATE TABLE IF NOT EXISTS `stakeholder` (
-          `stakeholder_id` INT(11) NOT NULL AUTO_INCREMENT,
-          `stakeholder_category` VARCHAR(255) NULL DEFAULT NULL,
-          `organization_name` VARCHAR(255) NULL DEFAULT NULL,
-          `legal_form` VARCHAR(255) NULL DEFAULT NULL,
-          `stakeholder_cat_specific_info` VARCHAR(255) NULL DEFAULT NULL,
-          `size` VARCHAR(255) NULL DEFAULT NULL,
-          `products` VARCHAR(255) NULL DEFAULT NULL,
-          `production_capacity` VARCHAR(255) NULL DEFAULT NULL,
-          `main_markets` VARCHAR(255) NULL DEFAULT NULL,
-          `brands` VARCHAR(255) NULL DEFAULT NULL,
-          `purchasing_capacity` VARCHAR(255) NULL DEFAULT NULL,
-          `main_purchasing_markets` VARCHAR(255) NULL DEFAULT NULL,
-          `main_sales_markets` VARCHAR(255) NULL DEFAULT NULL,
-          `suppling_factories` VARCHAR(255) NULL DEFAULT NULL,
-          `department` VARCHAR(255) NULL DEFAULT NULL,
-          `sub_category` VARCHAR(255) NULL DEFAULT NULL,
-          `organizational_location` VARCHAR(255) NULL DEFAULT NULL,
-          `objective` VARCHAR(255) NULL DEFAULT NULL,
-          `main_services` VARCHAR(255) NULL DEFAULT NULL,
-          `membership` VARCHAR(255) NULL DEFAULT NULL,
-          `giz_intervention_history` VARCHAR(255) NULL DEFAULT NULL,
-          PRIMARY KEY (`stakeholder_id`))
-        ENGINE = InnoDB
-        AUTO_INCREMENT = 28
-        DEFAULT CHARACTER SET = utf8mb4;
-        
-        
-        -- -----------------------------------------------------
-        -- Table `contacts`
-        -- -----------------------------------------------------
-        CREATE TABLE IF NOT EXISTS `contacts` (
-          `id_contacts` INT(11) NOT NULL AUTO_INCREMENT,
-          `contact_category` VARCHAR(255) NULL DEFAULT NULL,
-          `gender` VARCHAR(255) NULL DEFAULT NULL,
-          `academic_titles` VARCHAR(255) NULL DEFAULT NULL,
-          `last_name` VARCHAR(255) NULL DEFAULT NULL,
-          `first_name` VARCHAR(255) NULL DEFAULT NULL,
-          `call_name` VARCHAR(255) NULL DEFAULT NULL,
-          `current_company` VARCHAR(255) NULL DEFAULT NULL,
-          `designation` VARCHAR(255) NULL DEFAULT NULL,
-          `previous_company` VARCHAR(255) NULL DEFAULT NULL,
-          `house_number` VARCHAR(255) NULL DEFAULT NULL,
-          `street` VARCHAR(255) NULL DEFAULT NULL,
-          `city` VARCHAR(255) NULL DEFAULT NULL,
-          `postal_code` VARCHAR(255) NULL DEFAULT NULL,
-          `extra_info_of_place` VARCHAR(255) NULL DEFAULT NULL,
-          `country` VARCHAR(255) NULL DEFAULT NULL,
-          `web_link` VARCHAR(255) NULL DEFAULT NULL,
-          `geo_data` VARCHAR(255) NULL DEFAULT NULL,
-          `landline_phone_1` VARCHAR(255) NULL DEFAULT NULL,
-          `landline_phone_2` VARCHAR(255) NULL DEFAULT NULL,
-          `fax` VARCHAR(255) NULL DEFAULT NULL,
-          `cell_phone_1` VARCHAR(255) NULL DEFAULT NULL,
-          `cell_phone_2` VARCHAR(255) NULL DEFAULT NULL,
-          `cell_phone_3` VARCHAR(255) NOT NULL,
-          `cell_phone_4` VARCHAR(255) NOT NULL,
-          `email_1` VARCHAR(255) NOT NULL,
-          `email_2` VARCHAR(255) NOT NULL,
-          `email_3` VARCHAR(255) NOT NULL,
-          `email_4` VARCHAR(255) NOT NULL,
-          `whatsapp_1` VARCHAR(255) NOT NULL,
-          `whatsapp_2` VARCHAR(255) NOT NULL,
-          `whatsapp_3` VARCHAR(255) NOT NULL,
-          `whatsapp_4` VARCHAR(255) NOT NULL,
-          `stakeholder_id` INT(11) NOT NULL,
-          PRIMARY KEY (`id_contacts`),
-          INDEX `fk_contacts_stakeholder_idx` (`stakeholder_id` ASC) ,
-          CONSTRAINT `fk_contacts_stakeholder`
-            FOREIGN KEY (`stakeholder_id`)
-            REFERENCES `stakeholder` (`stakeholder_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION)
-        ENGINE = InnoDB
-        AUTO_INCREMENT = 7
-        DEFAULT CHARACTER SET = utf8mb4;
-        
-        
-        -- -----------------------------------------------------
-        -- Table `giz_intervention`
-        -- -----------------------------------------------------
-        CREATE TABLE IF NOT EXISTS `giz_intervention` (
-          `intervention_id` INT(11) NOT NULL AUTO_INCREMENT,
-          `name_of_intervention` VARCHAR(255) NULL DEFAULT NULL,
-          `short_description` VARCHAR(255) NULL DEFAULT NULL,
-          `giz_module` VARCHAR(255) NULL DEFAULT NULL,
-          `component_manager` VARCHAR(255) NULL DEFAULT NULL,
-          `comments` VARCHAR(255) NULL DEFAULT NULL,
-          PRIMARY KEY (`intervention_id`))
-        ENGINE = InnoDB
-        AUTO_INCREMENT = 8
-        DEFAULT CHARACTER SET = utf8mb4;
-        
-        
-        -- -----------------------------------------------------
-        -- Table `giz_project`
-        -- -----------------------------------------------------
-        CREATE TABLE IF NOT EXISTS `giz_project` (
-          `project_id` INT(11) NOT NULL AUTO_INCREMENT,
-          `name_of_module` VARCHAR(255) NULL DEFAULT NULL,
-          `short_description` VARCHAR(255) NULL DEFAULT NULL,
-          `giz_intervention` VARCHAR(255) NULL DEFAULT NULL,
-          `duration` VARCHAR(255) NULL DEFAULT NULL,
-          `av` VARCHAR(255) NULL DEFAULT NULL,
-          `budget` VARCHAR(255) NULL DEFAULT NULL,
-          `comments` VARCHAR(255) NULL DEFAULT NULL,
-          PRIMARY KEY (`project_id`))
-        ENGINE = InnoDB
-        AUTO_INCREMENT = 7
-        DEFAULT CHARACTER SET = utf8mb4;
-        
-        
-        -- -----------------------------------------------------
-        -- Table `giz_interventions_history`
-        -- -----------------------------------------------------
-        CREATE TABLE IF NOT EXISTS `giz_interventions_history` (
-          `intervention_history_id` INT(11) NOT NULL AUTO_INCREMENT,
-          `year_of_intervention` VARCHAR(255) NULL DEFAULT NULL,
-          `giz_intervention` VARCHAR(255) NULL DEFAULT NULL,
-          `focal_person` VARCHAR(255) NULL DEFAULT NULL,
-          `comments` VARCHAR(255) NULL DEFAULT NULL,
-          `stakeholder_id` INT(11) NOT NULL,
-          `project_id` INT(11) NOT NULL,
-          `intervention_id` INT(11) NOT NULL,
-          PRIMARY KEY (`intervention_history_id`),
-          INDEX `fk_giz_interventions_history_stakeholder1_idx` (`stakeholder_id` ASC) ,
-          INDEX `fk_giz_interventions_history_giz_project1_idx` (`project_id` ASC) ,
-          INDEX `fk_giz_interventions_history_giz_intervention1_idx` (`intervention_id` ASC) ,
-          CONSTRAINT `fk_giz_interventions_history_giz_intervention1`
-            FOREIGN KEY (`intervention_id`)
-            REFERENCES `giz_intervention` (`intervention_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-          CONSTRAINT `fk_giz_interventions_history_giz_project1`
-            FOREIGN KEY (`project_id`)
-            REFERENCES `giz_project` (`project_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-          CONSTRAINT `fk_giz_interventions_history_stakeholder1`
-            FOREIGN KEY (`stakeholder_id`)
-            REFERENCES `stakeholder` (`stakeholder_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION)
-        ENGINE = InnoDB
-        AUTO_INCREMENT = 9
-        DEFAULT CHARACTER SET = utf8mb4;
         
         
         -- -----------------------------------------------------
@@ -272,6 +123,278 @@ class m210823_000000_create_tables extends Migration
         ENGINE = InnoDB
         AUTO_INCREMENT = 7
         DEFAULT CHARACTER SET = utf8mb4;
+ -- -----------------------------------------------------
+ -- Table `app`.`customer`
+ -- -----------------------------------------------------
+ CREATE TABLE IF NOT EXISTS `app`.`customer` (
+  `customer_id` INT(50) NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(255) NOT NULL,
+  `i_street_name` VARCHAR(255) NOT NULL,
+  `i_house_number` VARCHAR(255) NOT NULL,
+  `i_appendix` VARCHAR(255) NOT NULL,
+  `i_zipcode` VARCHAR(255) NOT NULL,
+  `i_city` VARCHAR(255) NOT NULL,
+  `i_country` VARCHAR(255) NOT NULL,
+  `d_street_name` VARCHAR(255) NOT NULL,
+  `d_house_number` VARCHAR(255) NOT NULL,
+  `d_appendix` VARCHAR(255) NOT NULL,
+  `d_zipcode` VARCHAR(255) NOT NULL,
+  `d_city` VARCHAR(255) NOT NULL,
+  `d_country` VARCHAR(255) NOT NULL,
+  `vat_number` VARCHAR(255) NOT NULL,
+  `coc_number` VARCHAR(255) NOT NULL,
+  `invoice_email` VARCHAR(255) NOT NULL,
+  `delivery_notes` VARCHAR(255) NOT NULL,
+  `notes` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`customer_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`customer_contact`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`customer_contact` (
+  `contact_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `position` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone_number1` VARCHAR(255) NOT NULL,
+  `phone_number2` VARCHAR(255) NOT NULL,
+  `phone_number3` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`contact_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`delivery_raw_material`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`delivery_raw_material` (
+  `delivery_raw_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `supplier_company_name` VARCHAR(255) NOT NULL,
+  `raw_material_name` VARCHAR(255) NOT NULL,
+  `date` DATE NOT NULL,
+  `is_packaging_ok` VARCHAR(255) NOT NULL,
+  `batch_no` VARCHAR(255) NOT NULL,
+  `expiration_date` VARCHAR(255) NOT NULL,
+  `unit` INT(255) NOT NULL,
+  `total_units` INT(255) NOT NULL,
+  `price_per_unit` INT(255) NOT NULL,
+  PRIMARY KEY (`delivery_raw_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`manager`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`manager` (
+  `manager_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`manager_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`order`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`order` (
+  `order_id` INT(50) NOT NULL AUTO_INCREMENT,
+  `date` INT(255) NOT NULL,
+  `invoice_number` INT(255) NOT NULL,
+  `company_name` INT(255) NOT NULL,
+  `street_name` INT(255) NOT NULL,
+  `house_number` INT(255) NOT NULL,
+  `appendix` INT(255) NOT NULL,
+  `zipcode` INT(255) NOT NULL,
+  `city` INT(255) NOT NULL,
+  `country` INT(255) NOT NULL,
+  `vat_number` INT(255) NOT NULL,
+  `discount` INT(255) NOT NULL,
+  `products` VARCHAR(255) NOT NULL,
+  `quantity` INT(255) NOT NULL,
+  `unit_price` DOUBLE NOT NULL,
+  `sub_total` DOUBLE NOT NULL,
+  `total` INT(255) NOT NULL,
+  PRIMARY KEY (`order_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`product` (
+  `product_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `product_name` VARCHAR(255) NOT NULL,
+  `barcode` VARCHAR(255) NOT NULL,
+  `volume_or_weight` VARCHAR(255) NOT NULL,
+  `retial_price` VARCHAR(255) NOT NULL,
+  `wholesale_price` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`product_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`product_raw`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`product_raw` (
+  `product_raw_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `raw_material_name` VARCHAR(255) NOT NULL,
+  `unit` VARCHAR(255) NOT NULL,
+  `weight` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`product_raw_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`production_batch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`production_batch` (
+  `batch_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `date` DATE NOT NULL,
+  `production_name` VARCHAR(255) NOT NULL,
+  `total_units` VARCHAR(255) NOT NULL,
+  `expiration_date` VARCHAR(255) NOT NULL,
+  `batch_number` VARCHAR(255) NOT NULL,
+  `raw_material` VARCHAR(255) NOT NULL,
+  `employee_name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`batch_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`production_employees`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`production_employees` (
+  `employees_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `phone_number` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `street` VARCHAR(255) NOT NULL,
+  `house_number` VARCHAR(255) NOT NULL,
+  `appendix` VARCHAR(255) NOT NULL,
+  `zipcode` VARCHAR(255) NOT NULL,
+  `city` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`employees_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`production_employees_work`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`production_employees_work` (
+  `work_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `date` VARCHAR(255) NOT NULL,
+  `working_hours` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`work_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`raw_material_report`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`raw_material_report` (
+  `raw_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  PRIMARY KEY (`raw_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`sales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`sales` (
+  `sales_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `total_sales` INT(255) NOT NULL,
+  `total_outstanding` INT(255) NOT NULL,
+  PRIMARY KEY (`sales_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`stock_goods`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`stock_goods` (
+  `stock_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `product_name` VARCHAR(255) NOT NULL,
+  `count` INT(255) NOT NULL,
+  PRIMARY KEY (`stock_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`supplier`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`supplier` (
+  `supplier_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(255) NOT NULL,
+  `street_name` VARCHAR(255) NOT NULL,
+  `house_number` VARCHAR(255) NOT NULL,
+  `appendix` VARCHAR(255) NOT NULL,
+  `zipcode` VARCHAR(255) NOT NULL,
+  `city` VARCHAR(255) NOT NULL,
+  `country` VARCHAR(255) NOT NULL,
+  `vat_number` VARCHAR(255) NOT NULL,
+  `coc_number` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `notes` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`supplier_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`supplier_contact`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`supplier_contact` (
+  `contact_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `position` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone_number1` VARCHAR(255) NOT NULL,
+  `phone_number2` VARCHAR(255) NOT NULL,
+  `phone_number3` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`contact_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `app`.`supplier_raw_material`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `app`.`supplier_raw_material` (
+  `raw_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `raw_material_name` VARCHAR(255) NOT NULL,
+  `supplier_code` VARCHAR(255) NOT NULL,
+  `unit` VARCHAR(255) NOT NULL,
+  `low_stock` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`raw_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
         
         SQL;
 

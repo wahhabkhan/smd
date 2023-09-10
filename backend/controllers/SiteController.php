@@ -67,41 +67,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $dbLocation = Stakeholder::getLocationDropdowns();
-        $dbCategory = History::getCategoryDropdowns();
 
-        // Fetch only the stakeholder_category data from the database
-        $params = [];
-        $location = Yii::$app->request->get('location');
-        $category = Yii::$app->request->get('location');
-        if($location)
-        {
-            $params[]=['=','organizational_location',$location];
-        }
-        if($category)
-        {
-            //$params[]=['=','']
-        }
-        $stakeHolderChartData = Stakeholder::getChartData($params);
-        $activitiesData = History::getChartData($params);
-        $activitiesGridData = History::getGridData($params);
-        $activitiesGridData2 = Intervention::getGridData2($params);
-      //  $model = History::findOne( $intervention_history_id );
-        $categoryCounts = Stakeholder::getCategoryCounts();
-
-        //var_dump($stakeholderCategories);exit();
-        return $this->render('index', [
-            'stakeholderCategories' => $stakeHolderChartData->label,
-            'stakeholderChartLabels'=>$stakeHolderChartData->label,
-            'stakeholderChartData'=>$stakeHolderChartData->data,
-            'activitiesGridData'=>$activitiesGridData,
-            'activitiesGridData2'=>$activitiesGridData2,
-            'locationData' =>$dbLocation,
-            'categoryData' =>$dbCategory,
-            'categoryCounts' => $categoryCounts,
-         
-
-        ]);
     }
     
     

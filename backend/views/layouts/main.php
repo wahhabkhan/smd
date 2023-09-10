@@ -169,7 +169,7 @@ AppAsset::register($this);
     ?>
 
         <!-- Logo section -->
-        <div class="navbar-brand">
+        <!-- <div class="navbar-brand">
             <?php
     echo Html::img(Yii::$app->request->baseUrl . '/GIZ_LOGO.png', [
         'alt' => 'GIZ Logo',
@@ -177,12 +177,12 @@ AppAsset::register($this);
         'linkOptions' => ['class' => 'mb-1']
     ]);
     ?>
-        </div>
+        </div> -->
 
 
         <?php
     $menuItems = [
-        ['label' => 'TextILES', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'ms-2 text-light  mb-1']],
+        ['label' => 'ERP', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'ms-2 text-light  mb-1']],
         ['label' => 'Home', 'url' => ['/site/index'], 'linkOptions' => ['class' => 'ms-2 text-light mb-1']],
         // Add more menu items as needed.
     ];
@@ -219,7 +219,7 @@ AppAsset::register($this);
                 <nav class="nav flex-column">
                     <br><br>
                     <div class="menu-item" onclick="toggleSubMenu('project')">
-                        <a href="#">Project</a>
+                        <a href="#">Sales</a>
                         <i class="arrow down"></i>
                     </div>
                     <div class="sub-menu" id="project">
@@ -229,7 +229,7 @@ AppAsset::register($this);
                     </div>
 
                     <div class="menu-item" onclick="toggleSubMenu('intervention')">
-                        <a href="#">Intervention</a>
+                        <a href="#">Suppliers & Raw materials</a>
                         <i class="arrow down"></i>
                     </div>
                     <div class="sub-menu" id="intervention">
@@ -241,7 +241,7 @@ AppAsset::register($this);
                     </div>
 
                     <div class="menu-item" onclick="toggleSubMenu('stakeholder')">
-                        <a href="#">Stakeholder</a>
+                        <a href="#">Production</a>
                         <i class="arrow down"></i>
                     </div>
                     <div class="sub-menu" id="stakeholder">
@@ -250,18 +250,6 @@ AppAsset::register($this);
                         <br>
                         <a href="<?=Yii::$app->urlManager->createUrl(['stakeholder/view-stakeholder'])?>">View
                             Stakeholder</a>
-                    </div>
-
-                    <div class="menu-item" onclick="toggleSubMenu('history')">
-                        <a href="#">Interventions <br> History</a>
-                        <i class="arrow down"></i>
-                    </div>
-                    <div class="sub-menu" id="history">
-                        <a href="<?=Yii::$app->urlManager->createUrl(['history/add-history'])?>">Add Interventions
-                            History</a>
-                        <br>
-                        <a href="<?=Yii::$app->urlManager->createUrl(['history/view-history'])?>">View Interventions
-                            History</a>
                     </div>
 
                     <div class="menu-item" onclick="toggleSubMenu('user')">
