@@ -60,6 +60,8 @@ class UserController extends Controller
  {
         if ( Yii::$app->user->can( 'update' ) ) {
             $model = $this->findModel( $id );
+            $model->password_hash = ''; 
+            
 
             if ( $this->request->isPost && $model->load( $this->request->post() ) ) {
                 // Check if the user entered a new password

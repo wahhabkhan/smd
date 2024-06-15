@@ -12,7 +12,7 @@ $this->title = 'Update User: ' . $model->id;
 ?>
 <div class="User-update">
 
-    <h4 class="text-danger" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
+    <h4 class="text-success" style="margin-left: 240px;"><?= Html::encode($this->title) ?></h4>
     <?= $this->render('add-user', [
         'model' => $model,
     ]) ?>

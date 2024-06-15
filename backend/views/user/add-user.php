@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
         <div class="form-container">
             <div class="user-form">
 
-                <h3 class="text-center text-danger mb-4">User Form</h3>
+                <h3 class="text-center text-success mb-4">User Form</h3>
 
                 <?php $form = ActiveForm::begin();?>
 
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
                 <?=$form->field($model, 'password_hash')->passwordInput(['maxlength' => true])?>
 
                 <div class="form-group text-center">
-                    <?=Html::submitButton('Save', ['class' => 'btn btn-danger w-25 my-4'])?>
+                    <?=Html::submitButton('Save', ['class' => 'btn btn-success w-25 my-4'])?>
                 </div>
 
                 <?php ActiveForm::end();?>

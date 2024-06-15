@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\User */
 
 $this->title = 'User';
-$this->params['breadcrumbs'][] = ['label' => 'User View', 'url' => ['view-user'], 'class' => 'text-danger'];
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['view-user'], 'class' => 'text-success'];
 
 
 ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = ['label' => 'User View', 'url' => ['view-user']
         <div class="col-md-6">
             <div class="project-view">
                 <div class="container">
-                        <h3 class="text-center text-danger my-3"><?= $this->title ?> <?= $userModel?> <?="Details" ?>
+                        <h3 class="text-center text-success my-3"><?= $this->title ?> <?= $userModel?> <?="Details" ?>
                         </h3>
                         <?= Breadcrumbs::widget([
         'links' => $this->params['breadcrumbs'],
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = ['label' => 'User View', 'url' => ['view-user']
         'homeLink' => [
           'label' => 'Home',
           'url' => Yii::$app->homeUrl,
-          'class' => 'text-danger', 
+          'class' => 'text-success', 
       ],
     ]) ?>
                     </div>
